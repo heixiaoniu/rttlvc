@@ -2,9 +2,10 @@
 # site.title来访问   site代表整个站点  以及data文件夹的数据文件（这里没有）
 # page这种表示当前页面
 # Setup
-title:        Real Time Transfer Learning for Any-to-Any Voice Conversion
-tagline:      A responsive theme for your project on GitHub Pages
-baseurl:      ""
+title:        RTTL-VC
+tagline:      Demo for "Real Time Transfer Learning fro Any-to-Any Voice Conversion"
+baseurl:      "https://github.com/heixiaoniu/RTTL-VC"     # 代码地址
+paperurl:     "https://github.com/heixiaoniu/RTTL-VC"     # 文章地址
 paginate:     1
 locale:       "en"
 

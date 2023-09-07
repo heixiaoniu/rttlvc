@@ -4,10 +4,528 @@ title: {{ site.name }}
 ---
 
 <div id="home">
-  <h1>Blog Posts</h1>
+  <!-- <h1>Blog Posts</h1>
   <ul class="posts">
     {% for post in site.posts %}
       <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
-  </ul>
+  </ul> -->
+  <h1 id="styletts-vc">StyleTTS-VC</h1>
+
+  <p>One-shot voice conversion (VC) aims to convert speech from any source speaker to an arbitrary target speaker with
+    only one reference speech audio from the target speaker, which relies heavily on disentangling the speaker’s
+    identity and speech content, a task that still remains challenging. Here, we propose a novel approach to learning
+    disentangled speech representation by transfer learning from style-based text-to-speech (TTS) models. With cycle
+    consistent and adversarial training, the style-based TTS models can perform transcription-guided one-shot VC with
+    high fidelity and similarity. By learning an additional mel-spectrogram encoder through a teacher-student knowledge
+    transfer and novel data augmentation scheme, our approach results in disentangled speech representation without
+    needing the input text. The subjective evaluation shows that our approach can significantly outperform the previous
+    state-of-the-art one-shot voice conversion models in both naturalness and similarity.</p>
+
+  <hr />
+
+  <h2 id="any-to-any-conversion">Any-to-Any Conversion</h2>
+
+  <p>All of the following audios are converted from <strong>an unseen speaker</strong> to <strong>another unseen
+      speaker</strong> during training. For a fair comparison to the baseline models, all audios are downsampled to 16k
+    Hz. The input to VC models was trimmed so the output has a different length from the input.</p>
+
+  <p><strong>All utterances are completely unseen during training, and the results are uncurated (NOT cherry-picked)
+      unless otherwise specified</strong>.</p>
+
+  <p>For more audio samples, please go to our survey used for MOS evaluation <a
+      href="https://survey.alchemer.com/s3/6794885/VC40-B1">here</a>. You may have to randomly select some answers
+    before proceeding to the next page.</p>
+
+  <p><strong>Sample 1 and 2</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: center"> </th>
+        <th style="text-align: center">Sample 1 (p294 → p326)</th>
+        <th style="text-align: center">Sample 2 (p261 → p225)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: center"><strong>Source</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/source/55.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/source/76.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>Target</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/gt/55.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/gt/76.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>AGAIN-VC</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/againvc/55.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/againvc/76.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>VQMIVC-VC</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/vqmivc/55.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/vqmivc/76.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>YourTTS</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/yourtts/55.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/yourtts/76.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>StyleTTS-VC (Proposed)</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/stylettsvc/55.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/stylettsvc/76.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Sample 3 and 4</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: center"> </th>
+        <th style="text-align: center">Sample 3 (p225 → p245)</th>
+        <th style="text-align: center">Sample 4 (p261 → p234)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: center"><strong>Source</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/source/46.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/source/15.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>Target</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/gt/46.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/gt/15.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>AGAIN-VC</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/againvc/46.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/againvc/15.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>VQMIVC-VC</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/vqmivc/46.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/vqmivc/15.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>YourTTS</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/yourtts/46.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/yourtts/15.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>StyleTTS-VC (Proposed)</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/stylettsvc/46.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/stylettsvc/15.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Sample 5 and 6</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: center"> </th>
+        <th style="text-align: center">Sample 5 (p238 → p347)</th>
+        <th style="text-align: center">Sample 6 (p302 → p238)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: center"><strong>Source</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/source/16.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/source/19.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>Target</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/gt/16.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/gt/19.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>AGAIN-VC</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/againvc/16.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/againvc/19.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>VQMIVC-VC</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/vqmivc/16.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/vqmivc/19.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>YourTTS</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/yourtts/16.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/yourtts/19.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>StyleTTS-VC (Proposed)</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/stylettsvc/16.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/demo/stylettsvc/19.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr />
+
+  <h2 id="ablation-study">Ablation Study</h2>
+
+  <p>We present four samples of ablation study for conditions described in Table 2 in our paper on VCTK dataset.</p>
+
+  <p><strong>Sample 1 and 2</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: center"> </th>
+        <th style="text-align: center">Sample 1</th>
+        <th style="text-align: center">Sample 2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: center"><strong>Source</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/source/10.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/source/32.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>Target</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/gt/10.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/gt/32.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>Baseline</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/baseline/10.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/baseline/32.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>No Augmentation</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/noaug/10.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/noaug/32.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>No MI Loss</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/noasr/10.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/noasr/32.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>No Cycle Loss</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/nocycle/10.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/nocycle/32.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>With Latent Loss</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/latent/10.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/latent/32.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Sample 3 and 4</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: center"> </th>
+        <th style="text-align: center">Sample 3</th>
+        <th style="text-align: center">Sample 4</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: center"><strong>Source</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/source/33.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/source/37.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>Target</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/gt/33.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/gt/37.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>Baseline</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/baseline/33.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/baseline/37.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>No Augmentation</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/noaug/33.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/noaug/37.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>No MI Loss</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/noasr/33.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/noasr/37.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>No Cycle Loss</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/nocycle/33.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/nocycle/37.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><strong>With Latent Loss</strong></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/latent/33.wav" />
+            &lt;/source&gt;
+          </audio></td>
+        <td style="text-align: center"><audio controls="controls">
+            <source type="audio/wav"
+              src="https://raw.githubusercontent.com/styletts-vc/styletts-vc.github.io/main/ablation/latent/37.wav" />
+            &lt;/source&gt;
+          </audio></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

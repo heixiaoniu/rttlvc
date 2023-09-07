@@ -4,8 +4,9 @@
 # Setup
 title:        RTTL-VC
 tagline:      Demo for "Real Time Transfer Learning fro Any-to-Any Voice Conversion"
-baseurl:      "https://github.com/heixiaoniu/RTTL-VC"     # 代码地址
-paperurl:     "https://github.com/heixiaoniu/RTTL-VC"     # 文章地址
+baseurl:      ""    
+codeurl:      "https://github.com/heixiaoniu/RTTL-VC"
+paperurl:     "https://github.com/heixiaoniu/RTTL-VC"     
 paginate:     1
 locale:       "en"
 

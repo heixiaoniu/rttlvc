@@ -11,21 +11,24 @@ title: {{ site.name }}
   <p style="text-align: center">Miao He, Yanghao Zhou, Mingyang Zhang, Heyan Huang, Xian-Ling Mao</p>
 
   <h2 id="abstract">Abstract</h2>
-  <p>One-shot voice conversion (VC) aims to convert speech from any source speaker to an arbitrary target speaker with
-    only one reference speech audio from the target speaker, which relies heavily on disentangling the speaker’s
-    identity and speech content, a task that still remains challenging. Here, we propose a novel approach to learning
-    disentangled speech representation by transfer learning from style-based text-to-speech (TTS) models. With cycle
-    consistent and adversarial training, the style-based TTS models can perform transcription-guided one-shot VC with
-    high fidelity and similarity. By learning an additional mel-spectrogram encoder through a teacher-student knowledge
-    transfer and novel data augmentation scheme, our approach results in disentangled speech representation without
-    needing the input text. The subjective evaluation shows that our approach can significantly outperform the previous
-    state-of-the-art one-shot voice conversion models in both naturalness and similarity.</p>
+  <p>In recent years, streaming voice conversion (VC) has attracted widespread attention because its real-time performance is more suitable for practical applications than non-streaming VC.
+    Most of the existing streaming VC methods are designed for one-to-one or many-to-many scenarios, while such scenarios are too restrictive and out of touch with reality, so it is important to study any-to-any streaming VC.
+    However, as far as we know, there is currently no research on streaming VC in any-to-any scenarios.
+    Thus, to fill this gap, in this paper, we propose a novel model called Real-Time Transfer Learning Voice Conversion (RTTL-VC), which is based on a non-autoregressive text-to-speech (TTS) system and implemented through transfer learning.
+    Specifically, the proposed method consists of three parts: a speech synthesizer, a voice converter and a streaming processor.
+    The speech synthesizer is first trained for extracting TTS knowledge (the context vectors).
+    Then, in order to better extract the speaker-independent content information, the learned TTS knowledge is transferred to the autoencoder voice converter as the content encoder supervision target.
+    Finally, in streaming processor, the input speeches are divided into chunks to simulate the continuous input flow in real time scenarios and then each chunk is converted sequentially to accomplish streaming inference.
+    Moreover, in mean opinion score (MOS) tests, we observe that the naturalness evaluation metrics cannot reflect the fluency of synthetic speech in streaming scenarios. To address this issue, we propose a new evaluation metric for streaming VC, called fluency.
+    Extensive experiments demonstrate that the proposed method achieves exceptional performance in terms of both latency and conversion quality, making it well-suited for real-time applications. Notably, the method also mitigates the issues of timbre leakage and feature damage commonly encountered in streaming VC.
+    Audio samples are available at https://heixiaoniu.github.io/rttlvc/.
+  </p>
 
   <hr />
 
   <h2 id="any-to-any-conversion">Streaming Any-to-Any Conversion</h2>
 
-  <p>All of the following audios are converted from <strong>an unseen speaker</strong> to <strong>another unseen
+  <!-- <p>All of the following audios are converted from <strong>an unseen speaker</strong> to <strong>another unseen
       speaker</strong> during training. For a fair comparison to the baseline models, all audios are downsampled to 16k
     Hz. The input to VC models was trimmed so the output has a different length from the input.</p>
 
@@ -34,7 +37,7 @@ title: {{ site.name }}
 
   <p>For more audio samples, please go to our survey used for MOS evaluation <a
       href="https://survey.alchemer.com/s3/6794885/VC40-B1">here</a>. You may have to randomly select some answers
-    before proceeding to the next page.</p>
+    before proceeding to the next page.</p> -->
 
   <p><strong>Sample 1 and 2</strong></p>
 

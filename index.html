@@ -11,17 +11,18 @@ title: {{ site.name }}
   <p style="text-align: center">Miao He, Yanghao Zhou, Mingyang Zhang, Heyan Huang, Xian-Ling Mao</p>
 
   <h2 id="abstract">Abstract</h2>
-  <p>In recent years, streaming voice conversion (VC) has attracted widespread attention because its real-time performance is more suitable for practical applications than non-streaming VC.
-    Most of the existing streaming VC methods are designed for one-to-one or many-to-many scenarios, while such scenarios are too restrictive and out of touch with reality, so it is important to study any-to-any streaming VC.
-    However, as far as we know, there is currently no research on streaming VC in any-to-any scenarios.
-    Thus, to fill this gap, in this paper, we propose a novel model called Real-Time Transfer Learning Voice Conversion (RTTL-VC), which is based on a non-autoregressive text-to-speech (TTS) system and implemented through transfer learning.
-    Specifically, the proposed method consists of three parts: a speech synthesizer, a voice converter and a streaming processor.
-    The speech synthesizer is first trained for extracting TTS knowledge (the context vectors).
-    Then, in order to better extract the speaker-independent content information, the learned TTS knowledge is transferred to the autoencoder voice converter as the content encoder supervision target.
-    Finally, in streaming processor, the input speeches are divided into chunks to simulate the continuous input flow in real time scenarios and then each chunk is converted sequentially to accomplish streaming inference.
-    Moreover, in mean opinion score (MOS) tests, we observe that the naturalness evaluation metrics cannot reflect the fluency of synthetic speech in streaming scenarios. To address this issue, we propose a new evaluation metric for streaming VC, called fluency.
-    Extensive experiments demonstrate that the proposed method achieves exceptional performance in terms of both latency and conversion quality, making it well-suited for real-time applications. Notably, the method also mitigates the issues of timbre leakage and feature damage commonly encountered in streaming VC.
-    Audio samples are available at https://heixiaoniu.github.io/rttlvc/.
+  <p>
+In recent years, streaming voice conversion (VC) has garnered significant attention due to its suitability for real-time applications compared to non-streaming VC. 
+Most existing streaming VC methods are designed for one-to-one, many-to-one, many-to-many, or any-to-many scenarios, which can be overly restrictive and disconnected from real-world needs, highlighting the importance of studying any-to-any streaming VC.
+However, as far as we know, there is currently no research on streaming VC in any-to-any scenarios.
+Thus, to fill this gap, in this paper, we propose a novel model called <strong>R</strong>eal-<strong>T</strong>ime <strong>T</strong>ransfer <strong>L</strong>earning <strong>V</strong>oice <strong>C</strong>onversion (<strong>RTTL-VC</strong>), which transfers comprehensive content knowledge from text-to-speech (TTS) to voice conversion.
+Specifically, the proposed method comprises three main components: a speech synthesizer, a voice converter, and a streaming processor.
+The speech synthesizer is first trained to extract TTS knowledge (the context vectors).
+Then, in order to better extract the speaker-independent content information, the learned TTS knowledge is transferred to the autoencoder voice converter to serve as content encoder supervision. 
+Finally, in streaming processor, input speeches are divided into chunks to simulate real-time continuous input flow, with each chunk being converted sequentially to enable streaming inference.
+To comprehensively evaluate the effectiveness of RTTL-VC in streaming scenarios and address the limitations of naturalness metrics in reflecting the continuity and consistency of synthetic speech, we propose the "fluency" metric for assessment.
+Extensive experiments demonstrate that RTTL-VC excels in terms of both latency and conversion quality, rendering it highly suitable for real-time applications. Notably, the method effectively mitigates issues such as timbre leakage and feature damage commonly encountered in streaming VC.
+Audio samples are available at <a href="https://heixiaoniu.github.io/rttlvc/">https://heixiaoniu.github.io/rttlvc/</a>.
   </p>
 
   <hr />

@@ -3,7 +3,7 @@
 # page这种表示当前页面
 # Setup
 title:        RTTL-VC
-tagline:      Demo for "Real Time Transfer Learning fro Any-to-Any Voice Conversion"
+tagline:      Demo for "Real Time Transfer Learning for Any-to-Any Voice Conversion"
 baseurl:      ""    
 codeurl:      "https://github.com/heixiaoniu/RTTL-VC"
 paperurl:     "https://github.com/heixiaoniu/RTTL-VC"     
